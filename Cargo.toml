@@ -1,0 +1,9 @@
+[package]
+name = "bangle"
+version = "0.1.0"
+edition = "2021"
+
+[dev-dependencies]
+
+# Allow more accurate testing of floating point numbers:
+approx = "0.5.1"
