@@ -1,16 +1,16 @@
-/// An angle, of generic unit `T` and generic floating point type `F`.
+/// An angle, of generic unit `U` and generic floating point type `T`.
 #[derive(Clone, Copy, Debug)]
-pub struct Angle<Unit: AngleUnit, T: AngleValue = f32> {
+pub struct Angle<U: AngleUnit, T: AngleValue = f32> {
     /// The value of this angle, specified
     pub value: T,
 
     /// The type of unit in which this angle is specified.
-    pub angle_unit: PhantomData<Unit>,
+    pub angle_unit: PhantomData<U>,
 }
 
-impl<Unit, T> From<T> for Angle<Unit, T>
+impl<U, T> From<T> for Angle<U, T>
 where
-    Unit: AngleUnit,
+    U: AngleUnit,
     T: AngleValue,
 {
     fn from(value: T) -> Self {
@@ -18,9 +18,9 @@ where
     }
 }
 
-impl<Unit, T> Angle<Unit, T>
+impl<U, T> Angle<U, T>
 where
-    Unit: AngleUnit,
+    U: AngleUnit,
     T: AngleValue,
 {
     /// Constructs a new angle from the specified value.
