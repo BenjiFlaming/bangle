@@ -6,7 +6,7 @@ where
     T: AngleValue,
 {
     fn from(radians: &AngleInRadians<T>) -> Self {
-        Self::from(radians.value * T::radians_to_rotations())
+        Self::from(radians.value.radians_to_rotations())
     }
 }
 
@@ -15,7 +15,7 @@ where
     T: AngleValue,
 {
     fn from(degrees: &AngleInDegrees<T>) -> Self {
-        Self::from(degrees.value / T::degree_full_circle())
+        Self::from(degrees.value.degrees_to_rotations())
     }
 }
 
@@ -24,7 +24,7 @@ where
     T: AngleValue,
 {
     fn from(percentage: &AngleInPercentage<T>) -> Self {
-        Self::from(percentage.value / T::full_percentage())
+        Self::from(percentage.value.percentage_to_rotations())
     }
 }
 
