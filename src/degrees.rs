@@ -39,13 +39,13 @@ where
 }
 
 // This blanket implementation allows converting from an owned value.
-impl<Unit, T> From<Angle<Unit, T>> for AngleInDegrees<T>
+impl<U, T> From<Angle<U, T>> for AngleInDegrees<T>
 where
-    Unit: AngleUnit,
+    U: AngleUnit,
     T: AngleValue,
-    AngleInDegrees<T>: for<'a> From<&'a Angle<Unit, T>>,
+    AngleInDegrees<T>: for<'a> From<&'a Angle<U, T>>,
 {
-    fn from(angle: Angle<Unit, T>) -> Self {
+    fn from(angle: Angle<U, T>) -> Self {
         Self::from(&angle)
     }
 }
