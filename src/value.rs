@@ -1,5 +1,16 @@
 /// A generic trait for [f32] and [f64] floating point types.
-pub trait AngleValue: Mul<Self, Output = Self> + Div<Self, Output = Self> + Copy + Sized {
+pub trait AngleValue:
+    Add<Self, Output = Self>
+    + AddAssign<Self>
+    + Sub<Self, Output = Self>
+    + SubAssign<Self>
+    + Mul<Self, Output = Self>
+    + MulAssign<Self>
+    + Div<Self, Output = Self>
+    + DivAssign<Self>
+    + Copy
+    + Sized
+{
     /// Converts this value from radians to degrees.
     fn radians_to_degrees(&self) -> Self;
 
@@ -137,4 +148,4 @@ impl AngleValue for f64 {
     }
 }
 
-use std::ops::{Div, Mul};
+use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};

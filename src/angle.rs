@@ -64,7 +64,107 @@ where
     }
 }
 
+impl<U, T, O> Add<Angle<O, T>> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+    O: AngleUnit,
+    Angle<O, T>: Into<Self>,
+{
+    type Output = Self;
+
+    fn add(self, other: Angle<O, T>) -> Self::Output {
+        Self::from(self.value + other.into().value)
+    }
+}
+
+impl<U, T, O> AddAssign<Angle<O, T>> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+    O: AngleUnit,
+    Angle<O, T>: Into<Self>,
+{
+    fn add_assign(&mut self, other: Angle<O, T>) {
+        self.value += other.into().value
+    }
+}
+
+impl<U, T, O> Sub<Angle<O, T>> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+    O: AngleUnit,
+    Angle<O, T>: Into<Self>,
+{
+    type Output = Self;
+
+    fn sub(self, other: Angle<O, T>) -> Self::Output {
+        Self::from(self.value - other.into().value)
+    }
+}
+
+impl<U, T, O> SubAssign<Angle<O, T>> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+    O: AngleUnit,
+    Angle<O, T>: Into<Self>,
+{
+    fn sub_assign(&mut self, other: Angle<O, T>) {
+        self.value -= other.into().value
+    }
+}
+
+impl<U, T> Mul<T> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+{
+    type Output = Self;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        Self::from(self.value * rhs)
+    }
+}
+
+impl<U, T> MulAssign<T> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+{
+    fn mul_assign(&mut self, rhs: T) {
+        self.value *= rhs;
+    }
+}
+
+impl<U, T> Div<T> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+{
+    type Output = Self;
+
+    fn div(self, rhs: T) -> Self::Output {
+        Self::from(self.value / rhs)
+    }
+}
+
+impl<U, T> DivAssign<T> for Angle<U, T>
+where
+    U: AngleUnit,
+    T: AngleValue,
+{
+    fn div_assign(&mut self, rhs: T) {
+        self.value /= rhs;
+    }
+}
+
 use crate::{
     AngleInDegrees, AngleInPercentage, AngleInRadians, AngleInRotations, AngleUnit, AngleValue,
 };
-use std::{fmt::Debug, marker::PhantomData};
+use std::{
+    fmt::Debug,
+    marker::PhantomData,
+    ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign},
+};
