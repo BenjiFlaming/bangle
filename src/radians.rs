@@ -1,6 +1,16 @@
 /// An angle which has been specified in radians.
 pub type AngleInRadians<T = f32> = Angle<Radians, T>;
 
+impl<T> Angle<Radians, T>
+where
+    T: AngleValue,
+{
+    /// Constructs a new angle, represented in radians, from the specified value.
+    pub fn radians(value: T) -> Angle<Radians, T> {
+        AngleInRadians::new(value)
+    }
+}
+
 impl<T> From<&AngleInDegrees<T>> for AngleInRadians<T>
 where
     T: AngleValue,

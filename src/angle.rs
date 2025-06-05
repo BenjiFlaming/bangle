@@ -31,38 +31,6 @@ where
         }
     }
 
-    /// Constructs a new angle, represented in radians, from the specified value.
-    pub fn radians(value: T) -> AngleInRadians<T>
-    where
-        AngleInRadians<T>: for<'a> From<&'a Self>,
-    {
-        AngleInRadians::new(value)
-    }
-
-    /// Constructs a new angle, represented in degrees, from the specified value.
-    pub fn degrees(value: T) -> AngleInDegrees<T>
-    where
-        AngleInDegrees<T>: for<'a> From<&'a Self>,
-    {
-        AngleInDegrees::new(value)
-    }
-
-    /// Constructs a new angle, represented in rotations, from the specified value.
-    pub fn rotations(value: T) -> AngleInRotations<T>
-    where
-        AngleInRotations<T>: for<'a> From<&'a Self>,
-    {
-        AngleInRotations::new(value)
-    }
-
-    /// Constructs a new angle, represented in percentage, from the specified value.
-    pub fn percentage(value: T) -> AngleInPercentage<T>
-    where
-        AngleInPercentage<T>: for<'a> From<&'a Self>,
-    {
-        AngleInPercentage::new(value)
-    }
-
     /// This angle, as represented in radians.
     pub fn as_radians(&self) -> AngleInRadians<T>
     where

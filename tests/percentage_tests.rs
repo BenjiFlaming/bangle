@@ -1,4 +1,11 @@
 #[test]
+fn percentage_by_name() {
+    let angle_by_type = AngleInPercentage::new(42.0);
+    let angle_by_function = Angle::percentage(42.0);
+    assert_ulps_eq!(angle_by_type.value, angle_by_function.value);
+}
+
+#[test]
 fn percentage_to_radians32() {
     let angle = AngleInPercentage::new(100.0f32);
     assert_ulps_eq!(angle.as_radians().value, std::f32::consts::TAU);
@@ -47,4 +54,4 @@ fn percentage_to_rotations64() {
 }
 
 use approx::assert_ulps_eq;
-use bangle::AngleInPercentage;
+use bangle::{Angle, AngleInPercentage};

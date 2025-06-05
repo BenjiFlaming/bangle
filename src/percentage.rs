@@ -1,6 +1,16 @@
 /// An angle which has been specified in rotations.
 pub type AngleInPercentage<T = f32> = Angle<Percentage, T>;
 
+impl<T> Angle<Percentage, T>
+where
+    T: AngleValue,
+{
+    /// Constructs a new angle, represented in percentage, from the specified value.
+    pub fn percentage(value: T) -> AngleInPercentage<T> {
+        AngleInPercentage::new(value)
+    }
+}
+
 impl<T> From<&AngleInRadians<T>> for AngleInPercentage<T>
 where
     T: AngleValue,

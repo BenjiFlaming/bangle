@@ -1,4 +1,11 @@
 #[test]
+fn rotations_by_name() {
+    let angle_by_type = AngleInRotations::new(42.0);
+    let angle_by_function = Angle::rotations(42.0);
+    assert_ulps_eq!(angle_by_type.value, angle_by_function.value);
+}
+
+#[test]
 fn rotations_to_radians32() {
     let angle = AngleInRotations::new(1.0f32);
     assert_ulps_eq!(angle.as_radians().value, std::f32::consts::TAU);
@@ -47,4 +54,4 @@ fn rotations_to_percentage64() {
 }
 
 use approx::assert_ulps_eq;
-use bangle::AngleInRotations;
+use bangle::{Angle, AngleInRotations};
