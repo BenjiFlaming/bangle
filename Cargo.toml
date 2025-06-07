@@ -2,6 +2,10 @@
 name = "bangle"
 version = "0.1.0"
 edition = "2021"
+description = "Strongly-typed angles, specified in radians, degrees, rotations, or percentages."
+license = "MIT OR Apache-2.0"
+keywords = ["angles", "conversion", "math", "degrees", "radians", "rotations", "percentages", "percent", "gamedev"]
+categories = ["game-development", "mathematics"]
 
 [dev-dependencies]
 
