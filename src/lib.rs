@@ -2,11 +2,14 @@
 
 //! ## Creating an [`Angle`]
 //!
-//! The core type is simply called [`Angle`], and it can be instantiated
-//! through a variety of functions, e.g.
+//! The core type is simply called [`Angle`], and it has a dedicated constructor
+//! named for each supported unit type:
 //!
-//! ```ignore
-//! let degrees = Angle::degrees(90);
+//! ```
+//! use bangle::Angle;
+//! use core::f32::consts::PI;
+//!
+//! let degrees = Angle::degrees(90.0);
 //! let radians = Angle::radians(PI / 2.0);
 //! let rotations = Angle::rotations(0.25);
 //! let percentage = Angle::percentage(25.0);
@@ -18,11 +21,31 @@
 //! Once you have an [`Angle`], you can convert it to any other type
 //! via similarly named functions:
 //!
-//! ```ignore
-//! let degrees = Angle::degrees(90);
+//! ```
+//! # use bangle::Angle;
+//! #
+//! let degrees = Angle::degrees(90.0);
 //! let radians = degrees.as_radians();
 //! let rotations = degrees.as_rotations();
 //! let percentage = degrees.as_percentage();
+//! ```
+//!
+//!
+//! ## Accessing the numeric value
+//!
+//! The value of an [`Angle`] is stored in the public [`value`][Angle::value] member:
+//!
+//! ```
+//! # use bangle::Angle;
+//! #
+//! let mut degrees = Angle::degrees(90.0);
+//! assert_eq!(degrees.value, 90.0);
+//!
+//! degrees.value = 180.0;
+//! assert_eq!(degrees.value, 180.0);
+//!
+//! degrees.value *= 2.0;
+//! assert_eq!(degrees.value, 360.0);
 //! ```
 //!
 //!
@@ -32,79 +55,144 @@
 //! and the result will be an angle of whatever type is on
 //! the lefthand side of the operation:
 //!
-//! ```ignore
-//! let degrees = Angle::degrees(90);
+//! ```
+//! # use bangle::Angle;
+//! # use core::f32::consts::PI;
+//! # use approx::assert_ulps_eq;
+//! #
+//! let degrees = Angle::degrees(90.0);
 //! let radians = Angle::radians(PI / 2.0);
 //! let rotations = Angle::rotations(0.25);
 //! let percentage = Angle::percentage(25.0);
 //!
 //! let full_circle_in_degrees = degrees + radians + rotations + percentage;
+//! assert_ulps_eq!(full_circle_in_degrees.value, 360.0);
 //! ```
 //!
 //!
-//! ## As a function argument
+//! ## Multiplying and dividing
+//!
+//! You can also multiply and divide angles by floating point numbers:
+//!
+//! ```
+//! # use bangle::Angle;
+//! # use core::f32::consts::PI;
+//! # use approx::assert_ulps_eq;
+//! #
+//! let mut degrees = Angle::degrees(90.0);
+//!
+//! degrees *= 4.0;
+//! assert_ulps_eq!(degrees.value, 360.0);
+//!
+//! degrees /= 2.0;
+//! assert_ulps_eq!(degrees.value, 180.0);
+//! ```
+//!
+//!
+//! ## Function arguments
 //!
 //! If you want to ensure that a function receives an [`Angle`] of a particular type,
-//! you can specify that type using either an explicit type or one of the crate's type aliases.
-//! Alternatively, you can allow callers to provide a raw number,
-//! by using the [`Into`] trait:
+//! you can specify that type explicitly:
 //!
-//! ```ignore
-//! fn angle_magic(first_angle: Angle<Radians>, second_angle: AngleInRadians) {
-//!   // do stuff
+//! ```
+//! # use bangle::{Angle, Radians, AngleInRadians};
+//! # use approx::assert_ulps_eq;
+//! #
+//! fn twice(angle: Angle<Radians>) -> Angle<Radians> {
+//!   angle * 2.0
 //! }
 //!
-//! fn flexible_angle(angle: impl Into<AngleInRadians>) {
-//!   let radians = angle.into();
-//!   // do stuff
-//! }
+//! let angle = Angle::radians(5.0);
+//! assert_ulps_eq!(twice(angle).value, 10.0);
 //! ```
 //!
-//! The first function above requires calling code to either have a value of the appropriate type,
-//! or create one on-the-fly, while the second function allows either raw numbers or angles of any type
-//! (with conversion being performed automatically).
+//! Or use one of the crate's type aliases:
 //!
-//! ```ignore
-//! let radians = Angle::radians(4.0);
-//! let degrees = Angle::degrees(2.0);
+//! ```
+//! # use bangle::{Angle, Radians};
+//! # use approx::assert_ulps_eq;
+//! #
+//! use bangle::AngleInRadians;
 //!
-//! angle_magic(radians, degrees.into());
-//! angle_magic(Angle::radians(4.0), Angle::radians(2.0));
+//! fn twice(angle: AngleInRadians) -> AngleInRadians {
+//!   angle * 2.0
+//! }
 //!
-//! flexible_angle(42.0);
-//! flexible_angle(radians);
-//! flexible_angle(degrees);
+//! let angle = Angle::radians(5.0);
+//! assert_ulps_eq!(twice(angle).value, 10.0);
+//! ```
+//!
+//! Alternatively, you could allow callers to provide other angle units,
+//! or raw floating point numbers, by using the [`Into`] trait:
+//!
+//! ```
+//! # use bangle::{Angle, Radians, AngleInRadians};
+//! # use approx::assert_ulps_eq;
+//! #
+//! fn twice(angle: impl Into<AngleInRadians>) -> AngleInRadians {
+//!   let radians = angle.into();
+//!   radians * 2.0
+//! }
+//!
+//! let radians = Angle::radians(5.0);
+//! let degrees = Angle::degrees(5.0);
+//!
+//! assert_ulps_eq!(twice(radians).value, 10.0);
+//! assert_ulps_eq!(twice(degrees).as_degrees().value, 10.0);
+//! assert_ulps_eq!(twice(5.0).value, 10.0);
+//! ```
+//!
+//! As a final option, you could make a function completely generic:
+//!
+//! ```
+//! # use bangle::{Angle, AngleUnit};
+//! # use approx::assert_ulps_eq;
+//! #
+//! fn twice<T: AngleUnit>(angle: Angle<T>) -> Angle<T> {
+//!   angle * 2.0
+//! }
+//!
+//! let radians = Angle::radians(5.0);
+//! let degrees = Angle::degrees(5.0);
+//!
+//! assert_ulps_eq!(twice(radians).value, 10.0);
+//! assert_ulps_eq!(twice(degrees).value, 10.0);
 //! ```
 //!
 //!
 //! ## High resolution (64-bit) angles
 //!
-//! You can also specify that 64-bit numbers be used, instead of the default 32-bit.
-//! To do this, simply override the second generic argument.  As an example,
-//! here is how the functions above could specify 64-bit numbers:
+//! By default, Bangle uses [f32] numbers for storing angle values.
+//! If your use case requires higher precision,
+//! you can use [f64] numbers by overriding the appropriate generic argument:
 //!
-//! ```ignore
-//! fn angle_magic(first_angle: Angle<Radians, f64>, second_angle: AngleInRadians<f64>) {
-//!   // do stuff
-//! }
-//!
-//! fn flexible_angle(angle: impl Into<AngleInRadians<f64>>) {
-//!   let radians = angle.into();
-//!   // do stuff
-//! }
 //! ```
+//! # use bangle::{Angle, Radians, AngleInRadians};
+//! # use approx::assert_ulps_eq;
+//! fn sum_angles(angle1: Angle<Radians, f64>, angle2: AngleInRadians<f64>) -> AngleInRadians<f64> {
+//!   angle1 + angle2
+//! }
+//!
+//! let angle_a = Angle::radians(4.0);
+//! let angle_b = Angle::radians(2.0);
+//!
+//! assert_ulps_eq!(sum_angles(angle_a, angle_b).value, 6.0);
+//! ```
+//!
+//! Note that, in most cases, you don't need to do anything unusual when creating an [`Angle`]
+//! to be passed into such functions -
+//! Rust will typically infer the use of the use [f64] numeric type when appropriate.
+//!
 //!
 //! ## Running the tests
 //!
-//! At the time of writing, the code snippets in this documentation are not set up properly
-//! to function as tests, so the `cargo test` command will ignore them.
-//! The `tests/` directory contains a full suite of tests, however, which [Tarpaulin] confirms
-//! provides 100% coverage of all library code.
-//! (Run `cargo tarpaulin -o html`, and examine the output HTML file in this crate's root directory.)
+//! Bangle includes a full suite of tests, which (according to [Tarpaulin]) provides 100% coverage of all library code.
+//! (To verify this, install [Tarpaulin], use `cargo tarpaulin -o html` within Bangle's crate directory to run all tests,
+//! and examine the HTML output file in the Bangle crate's root directory.)
 //!
-//! You may also wish to consider using [cargo-nextest] for faster test running,
-//! with more concise reporting of results.
-//! (I was late in discovering this tool, so just passing this info along.)
+//! You can also run all tests via the `cargo test` command,
+//! or use [cargo-nextest] (recommended) to run the main test suite via the command `cargo nextest run`,
+//! and then use `cargo test --doc` to test the examples in this documentation.
 //!
 //! [Tarpaulin]: https://github.com/xd009642/tarpaulin
 //! [cargo-nextest]: https://nexte.st/
