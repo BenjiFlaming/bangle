@@ -162,9 +162,9 @@
 //!
 //! ## High resolution (64-bit) angles
 //!
-//! By default, Bangle uses [f32] numbers for storing angle values.
+//! By default, Bangle uses [`f32`] numbers for storing angle values.
 //! If your use case requires higher precision,
-//! you can use [f64] numbers by overriding the appropriate generic argument:
+//! you can use [`f64`] numbers by overriding the appropriate generic argument:
 //!
 //! ```
 //! # use bangle::{Angle, Radians, AngleInRadians};
@@ -180,8 +180,7 @@
 //! ```
 //!
 //! Note that, in most cases, you don't need to do anything unusual when creating an [`Angle`]
-//! to be passed into such functions -
-//! Rust will typically infer the use of the use [f64] numeric type when appropriate.
+//! to be passed into such functions - Rust will typically infer the use of [`f64`] numbers automatically.
 //!
 //!
 //! ## Running the tests
@@ -197,6 +196,12 @@
 //! [Tarpaulin]: https://github.com/xd009642/tarpaulin
 //! [cargo-nextest]: https://nexte.st/
 //!
+//!
+//! ## In conclusion
+//!
+//! If you find this library useful, and you're curious to know what else I might be building or doing,
+//! you might enjoy visiting [my website](https://benjiflaming.com), where you'll find content dating back
+//! all the way to the late 90s.
 //!
 
 #![warn(missing_docs, clippy::missing_docs_in_private_items)]
