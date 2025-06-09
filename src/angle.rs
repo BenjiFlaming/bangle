@@ -8,6 +8,7 @@ pub struct Angle<U: AngleUnit, T: AngleValue = f32> {
     pub angle_unit: PhantomData<U>,
 }
 
+// Allows the construction of an angle from a raw numeric type.
 impl<U, T> From<T> for Angle<U, T>
 where
     U: AngleUnit,
