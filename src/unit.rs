@@ -21,4 +21,4 @@ impl AngleUnit for Rotations {}
 pub struct Percentage;
 impl AngleUnit for Percentage {}
 
-use std::fmt::Debug;
+use core::fmt::Debug;

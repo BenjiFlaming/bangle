@@ -163,7 +163,7 @@ where
 use crate::{
     AngleInDegrees, AngleInPercentage, AngleInRadians, AngleInRotations, AngleUnit, AngleValue,
 };
-use std::{
+use core::{
     fmt::Debug,
     marker::PhantomData,
     ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign},
