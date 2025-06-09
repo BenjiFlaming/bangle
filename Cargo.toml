@@ -5,7 +5,7 @@ edition = "2021"
 description = "Strongly-typed angles, specified in radians, degrees, rotations, or percentages."
 license = "MIT OR Apache-2.0"
 keywords = ["angles", "conversion", "math", "gamedev"]
-categories = ["game-development", "mathematics"]
+categories = ["game-development", "mathematics", "no-std", "no-std::no-alloc"]
 repository = "https://github.com/BenjiFlaming/bangle"
 
 [dev-dependencies]
