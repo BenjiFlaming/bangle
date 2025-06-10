@@ -2,6 +2,9 @@
 /// An angle specified in percentage.
 pub struct Percentage;
 
+/// Type alias for an angle which has been specified in rotations.
+pub type AngleInPercentage<T = f32> = Angle<Percentage, T>;
+
 impl AngleUnit for Percentage {
     fn to_radians<T: AngleValue>(value: T) -> Angle<Radians, T> {
         Angle::new(value.percentage_to_radians())
@@ -35,9 +38,6 @@ impl AngleUnit for Percentage {
         Angle::new(value)
     }
 }
-
-/// An angle which has been specified in rotations.
-pub type AngleInPercentage<T = f32> = Angle<Percentage, T>;
 
 impl<T> Angle<Percentage, T>
 where

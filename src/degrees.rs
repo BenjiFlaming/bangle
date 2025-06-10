@@ -2,6 +2,9 @@
 /// An angle specified in degrees.
 pub struct Degrees;
 
+/// Type alias for an angle which has been specified in degrees.
+pub type AngleInDegrees<T = f32> = Angle<Degrees, T>;
+
 impl AngleUnit for Degrees {
     fn to_radians<T: AngleValue>(value: T) -> Angle<Radians, T> {
         Angle::new(value.degrees_to_radians())
@@ -35,9 +38,6 @@ impl AngleUnit for Degrees {
         Angle::new(value.percentage_to_degrees())
     }
 }
-
-/// An angle which has been specified in degrees.
-pub type AngleInDegrees<T = f32> = Angle<Degrees, T>;
 
 impl<T> Angle<Degrees, T>
 where

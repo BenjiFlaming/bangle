@@ -1,4 +1,4 @@
-/// A generic trait for [f32] and [f64] floating point types.
+/// Allows a numeric type to be converted between angle units.
 pub trait AngleValue:
     Add<Self, Output = Self>
     + AddAssign<Self>

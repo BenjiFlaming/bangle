@@ -2,6 +2,9 @@
 /// An angle specified in rotations.
 pub struct Rotations;
 
+/// Type alias for an angle which has been specified in rotations.
+pub type AngleInRotations<T = f32> = Angle<Rotations, T>;
+
 impl AngleUnit for Rotations {
     fn to_radians<T: AngleValue>(value: T) -> Angle<Radians, T> {
         Angle::new(value.rotations_to_radians())
@@ -35,9 +38,6 @@ impl AngleUnit for Rotations {
         Angle::new(value.percentage_to_rotations())
     }
 }
-
-/// An angle which has been specified in rotations.
-pub type AngleInRotations<T = f32> = Angle<Rotations, T>;
 
 impl<T> Angle<Rotations, T>
 where
