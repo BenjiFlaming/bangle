@@ -11,45 +11,18 @@ where
     }
 }
 
-impl<T> From<&AngleInDegrees<T>> for AngleInRadians<T>
+impl<T> FromAngle<T> for Angle<Radians, T>
 where
     T: AngleValue,
 {
-    fn from(degrees: &AngleInDegrees<T>) -> Self {
-        Self::from(degrees.value.degrees_to_radians())
+    fn from_angle<U>(angle: impl Borrow<Angle<U, T>>) -> Self
+    where
+        U: AngleUnit,
+        T: AngleValue,
+    {
+        U::to_radians(angle.borrow().value)
     }
 }
 
-impl<T> From<&AngleInRotations<T>> for AngleInRadians<T>
-where
-    T: AngleValue,
-{
-    fn from(rotations: &AngleInRotations<T>) -> Self {
-        Self::from(rotations.value.rotations_to_radians())
-    }
-}
-
-impl<T> From<&AngleInPercentage<T>> for AngleInRadians<T>
-where
-    T: AngleValue,
-{
-    fn from(percentage: &AngleInPercentage<T>) -> Self {
-        Self::from(percentage.value.percentage_to_radians())
-    }
-}
-
-// This blanket implementation allows converting from an owned value.
-impl<U, T> From<Angle<U, T>> for AngleInRadians<T>
-where
-    U: AngleUnit,
-    T: AngleValue,
-    AngleInRadians<T>: for<'a> From<&'a Angle<U, T>>,
-{
-    fn from(angle: Angle<U, T>) -> Self {
-        Self::from(&angle)
-    }
-}
-
-use crate::{
-    Angle, AngleInDegrees, AngleInPercentage, AngleInRotations, AngleUnit, AngleValue, Radians,
-};
+use crate::{Angle, AngleUnit, AngleValue, FromAngle, Radians};
+use core::borrow::Borrow;

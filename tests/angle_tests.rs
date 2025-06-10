@@ -27,14 +27,15 @@ fn default_value() {
 #[test]
 fn conversion_from_owned() {
     let radians = AngleInRadians::new(1.0);
-    let degrees = AngleInDegrees::from(radians);
-    let rotations = AngleInRotations::from(degrees);
-    let percentage = AngleInPercentage::from(rotations);
-    let radians = AngleInRadians::from(percentage);
+    let degrees = AngleInDegrees::from_angle(radians);
+    let rotations = AngleInRotations::from_angle(degrees);
+    let percentage = AngleInPercentage::from_angle(rotations);
+    let radians = AngleInRadians::from_angle(percentage);
     assert_ulps_eq!(radians.value, 1.0);
 }
 
 use approx::assert_ulps_eq;
 use bangle::{
     Angle, AngleInDegrees, AngleInPercentage, AngleInRadians, AngleInRotations, AngleUnit, Degrees,
+    FromAngle,
 };

@@ -219,7 +219,7 @@
 #![warn(missing_docs, clippy::missing_docs_in_private_items)]
 
 pub use self::{
-    angle::Angle,
+    angle::{Angle, FromAngle},
     degrees::AngleInDegrees,
     percentage::AngleInPercentage,
     radians::AngleInRadians,
