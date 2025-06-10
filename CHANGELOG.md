@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 ## [Unreleased]
 
 
+### 🔥 Removed
+
+- Generic implemention of `From` for creating `Angle` from numerics (use explicit constructors or implicit conversions instead)
+
+
 ### 🐛 Fixed
 
 - Certain types of generic conversion could not be compiled
