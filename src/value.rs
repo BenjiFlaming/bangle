@@ -59,7 +59,7 @@ impl AngleValue for f32 {
     }
 
     fn radians_to_percentage(&self) -> Self {
-        self * 0.15915482 * 100.0
+        self * 15.915482
     }
 
     fn degrees_to_radians(&self) -> Self {
@@ -67,11 +67,11 @@ impl AngleValue for f32 {
     }
 
     fn degrees_to_rotations(&self) -> Self {
-        self / 360.0
+        self * 0.002_777_777_8
     }
 
     fn degrees_to_percentage(&self) -> Self {
-        self / 360.0 * 100.0
+        self * 0.277_777_8
     }
 
     fn rotations_to_radians(&self) -> Self {
@@ -87,15 +87,15 @@ impl AngleValue for f32 {
     }
 
     fn percentage_to_radians(&self) -> Self {
-        self / 100.0 * core::f32::consts::TAU
+        self * 0.062_831_86
     }
 
     fn percentage_to_degrees(&self) -> Self {
-        self / 100.0 * 360.0
+        self * 3.6
     }
 
     fn percentage_to_rotations(&self) -> Self {
-        self / 100.0
+        self * 0.01
     }
 }
 
@@ -109,7 +109,7 @@ impl AngleValue for f64 {
     }
 
     fn radians_to_percentage(&self) -> Self {
-        self * 0.15915482422145 * 100.0
+        self * 15.915482422145
     }
 
     fn degrees_to_radians(&self) -> Self {
@@ -117,11 +117,11 @@ impl AngleValue for f64 {
     }
 
     fn degrees_to_rotations(&self) -> Self {
-        self / 360.0
+        self * 0.002777777777777778
     }
 
     fn degrees_to_percentage(&self) -> Self {
-        self / 360.0 * 100.0
+        self * 0.2777777777777778
     }
 
     fn rotations_to_radians(&self) -> Self {
@@ -137,15 +137,15 @@ impl AngleValue for f64 {
     }
 
     fn percentage_to_radians(&self) -> Self {
-        self / 100.0 * core::f64::consts::TAU
+        self * 0.06283185307179587
     }
 
     fn percentage_to_degrees(&self) -> Self {
-        self / 100.0 * 360.0
+        self * 3.6
     }
 
     fn percentage_to_rotations(&self) -> Self {
-        self / 100.0
+        self * 0.01
     }
 }
 
