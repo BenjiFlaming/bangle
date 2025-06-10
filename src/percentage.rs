@@ -5,36 +5,39 @@ pub struct Percentage;
 /// Type alias for an angle which has been specified in rotations.
 pub type AngleInPercentage<T = f32> = Angle<Percentage, T>;
 
-impl AngleUnit for Percentage {
-    fn to_radians<T: AngleValue>(value: T) -> Angle<Radians, T> {
+impl<T> AngleUnit<T> for Percentage
+where
+    T: AngleValue,
+{
+    fn to_radians(value: T) -> Angle<Radians, T> {
         Angle::new(value.percentage_to_radians())
     }
 
-    fn to_degrees<T: AngleValue>(value: T) -> Angle<Degrees, T> {
+    fn to_degrees(value: T) -> Angle<Degrees, T> {
         Angle::new(value.percentage_to_degrees())
     }
 
-    fn to_rotations<T: AngleValue>(value: T) -> Angle<Rotations, T> {
+    fn to_rotations(value: T) -> Angle<Rotations, T> {
         Angle::new(value.percentage_to_rotations())
     }
 
-    fn to_percentage<T: AngleValue>(value: T) -> Angle<Percentage, T> {
+    fn to_percentage(value: T) -> Angle<Percentage, T> {
         Angle::new(value)
     }
 
-    fn from_radians<T: AngleValue>(value: T) -> Angle<Self, T> {
+    fn from_radians(value: T) -> Angle<Self, T> {
         Angle::new(value.radians_to_percentage())
     }
 
-    fn from_degrees<T: AngleValue>(value: T) -> Angle<Self, T> {
+    fn from_degrees(value: T) -> Angle<Self, T> {
         Angle::new(value.radians_to_percentage())
     }
 
-    fn from_rotations<T: AngleValue>(value: T) -> Angle<Self, T> {
+    fn from_rotations(value: T) -> Angle<Self, T> {
         Angle::new(value.rotations_to_percentage())
     }
 
-    fn from_percentage<T: AngleValue>(value: T) -> Angle<Self, T> {
+    fn from_percentage(value: T) -> Angle<Self, T> {
         Angle::new(value)
     }
 }
@@ -55,7 +58,7 @@ where
 {
     fn from_other<U>(angle: impl Borrow<Angle<U, T>>) -> Self
     where
-        U: AngleUnit,
+        U: AngleUnit<T>,
         T: AngleValue,
     {
         U::to_percentage(angle.borrow().value)
@@ -68,7 +71,7 @@ where
 {
     fn convert<U>(self) -> Angle<U, T>
     where
-        U: AngleUnit,
+        U: AngleUnit<T>,
         T: AngleValue,
     {
         U::from_percentage(self.value)

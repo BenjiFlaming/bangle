@@ -1,6 +1,6 @@
 /// An angle, of generic unit `U` and generic floating point type `T`.
 #[derive(Clone, Copy, Debug, Default)]
-pub struct Angle<U: AngleUnit, T: AngleValue = f32> {
+pub struct Angle<U: AngleUnit<T>, T: AngleValue = f32> {
     /// The value of this angle, as a floating point number of type `T`.
     pub value: T,
 
@@ -10,7 +10,7 @@ pub struct Angle<U: AngleUnit, T: AngleValue = f32> {
 
 impl<U, T> Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
 {
     /// Constructs a new angle from the specified value.
@@ -44,9 +44,9 @@ where
 
 impl<U, T, O> Add<Angle<O, T>> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
-    O: AngleUnit,
+    O: AngleUnit<T>,
     Self: FromOther<T>,
 {
     type Output = Self;
@@ -58,9 +58,9 @@ where
 
 impl<U, T, O> AddAssign<Angle<O, T>> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
-    O: AngleUnit,
+    O: AngleUnit<T>,
     Self: FromOther<T>,
 {
     fn add_assign(&mut self, other: Angle<O, T>) {
@@ -70,9 +70,9 @@ where
 
 impl<U, T, O> Sub<Angle<O, T>> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
-    O: AngleUnit,
+    O: AngleUnit<T>,
     Self: FromOther<T>,
 {
     type Output = Self;
@@ -84,9 +84,9 @@ where
 
 impl<U, T, O> SubAssign<Angle<O, T>> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
-    O: AngleUnit,
+    O: AngleUnit<T>,
     Self: FromOther<T>,
 {
     fn sub_assign(&mut self, other: Angle<O, T>) {
@@ -96,7 +96,7 @@ where
 
 impl<U, T> Mul<T> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
 {
     type Output = Self;
@@ -108,7 +108,7 @@ where
 
 impl<U, T> MulAssign<T> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
 {
     fn mul_assign(&mut self, rhs: T) {
@@ -118,7 +118,7 @@ where
 
 impl<U, T> Div<T> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
 {
     type Output = Self;
@@ -130,7 +130,7 @@ where
 
 impl<U, T> DivAssign<T> for Angle<U, T>
 where
-    U: AngleUnit,
+    U: AngleUnit<T>,
     T: AngleValue,
 {
     fn div_assign(&mut self, rhs: T) {
