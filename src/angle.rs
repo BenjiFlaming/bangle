@@ -8,10 +8,19 @@ pub struct Angle<U: AngleUnit, T: AngleValue = f32> {
     pub angle_unit: PhantomData<U>,
 }
 
-/// Allows conversion to a particular angle unit, from any other angle unit.
-pub trait FromAngle<T>: Sized {
+/// Allows conversion to this angle unit from any other unit.
+pub trait FromOther<T = f32>: Sized {
     /// Converts an angle into this type.
-    fn from_angle<U>(angle: impl Borrow<Angle<U, T>>) -> Self
+    fn from_other<U>(angle: impl Borrow<Angle<U, T>>) -> Self
+    where
+        U: AngleUnit,
+        T: AngleValue;
+}
+
+/// Allows this unit to be converted to any other unit.
+pub trait ConvertAngle<T = f32> {
+    /// Converts this angle into another type.
+    fn convert<U>(self) -> Angle<U, T>
     where
         U: AngleUnit,
         T: AngleValue;
@@ -43,22 +52,22 @@ where
 
     /// This angle, as represented in radians.
     pub fn as_radians(&self) -> AngleInRadians<T> {
-        AngleInRadians::from_angle(self)
+        AngleInRadians::from_other(self)
     }
 
     /// This angle, as represented in degrees.
     pub fn as_degrees(&self) -> AngleInDegrees<T> {
-        AngleInDegrees::from_angle(self)
+        AngleInDegrees::from_other(self)
     }
 
     /// This angle, as represented in rotations.
     pub fn as_rotations(&self) -> AngleInRotations<T> {
-        AngleInRotations::from_angle(self)
+        AngleInRotations::from_other(self)
     }
 
     /// This angle, as represented in percentage.
     pub fn as_percentage(&self) -> AngleInPercentage<T> {
-        AngleInPercentage::from_angle(self)
+        AngleInPercentage::from_other(self)
     }
 }
 
@@ -67,12 +76,12 @@ where
     U: AngleUnit,
     T: AngleValue,
     O: AngleUnit,
-    Self: FromAngle<T>,
+    Self: FromOther<T>,
 {
     type Output = Self;
 
     fn add(self, other: Angle<O, T>) -> Self::Output {
-        Self::new(self.value + Self::from_angle(other).value)
+        Self::new(self.value + Self::from_other(other).value)
     }
 }
 
@@ -81,10 +90,10 @@ where
     U: AngleUnit,
     T: AngleValue,
     O: AngleUnit,
-    Self: FromAngle<T>,
+    Self: FromOther<T>,
 {
     fn add_assign(&mut self, other: Angle<O, T>) {
-        self.value += Self::from_angle(other).value
+        self.value += Self::from_other(other).value
     }
 }
 
@@ -93,12 +102,12 @@ where
     U: AngleUnit,
     T: AngleValue,
     O: AngleUnit,
-    Self: FromAngle<T>,
+    Self: FromOther<T>,
 {
     type Output = Self;
 
     fn sub(self, other: Angle<O, T>) -> Self::Output {
-        Self::new(self.value - Self::from_angle(other).value)
+        Self::new(self.value - Self::from_other(other).value)
     }
 }
 
@@ -107,10 +116,10 @@ where
     U: AngleUnit,
     T: AngleValue,
     O: AngleUnit,
-    Self: FromAngle<T>,
+    Self: FromOther<T>,
 {
     fn sub_assign(&mut self, other: Angle<O, T>) {
-        self.value -= Self::from_angle(other).value
+        self.value -= Self::from_other(other).value
     }
 }
 

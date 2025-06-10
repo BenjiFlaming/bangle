@@ -11,11 +11,11 @@ where
     }
 }
 
-impl<T> FromAngle<T> for Angle<Rotations, T>
+impl<T> FromOther<T> for Angle<Rotations, T>
 where
     T: AngleValue,
 {
-    fn from_angle<U>(angle: impl Borrow<Angle<U, T>>) -> Self
+    fn from_other<U>(angle: impl Borrow<Angle<U, T>>) -> Self
     where
         U: AngleUnit,
         T: AngleValue,
@@ -24,5 +24,18 @@ where
     }
 }
 
-use crate::{Angle, AngleUnit, AngleValue, FromAngle, Rotations};
+impl<T> ConvertAngle<T> for Angle<Rotations, T>
+where
+    T: AngleValue,
+{
+    fn convert<U>(self) -> Angle<U, T>
+    where
+        U: AngleUnit,
+        T: AngleValue,
+    {
+        U::from_rotations(self.value)
+    }
+}
+
+use crate::{Angle, AngleUnit, AngleValue, ConvertAngle, FromOther, Rotations};
 use core::borrow::Borrow;

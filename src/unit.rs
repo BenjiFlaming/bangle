@@ -11,6 +11,18 @@ pub trait AngleUnit: Clone + Copy + Debug + Default {
 
     /// Converts the supplied value, from this unit's type, into percentage.
     fn to_percentage<T: AngleValue>(value: T) -> Angle<Percentage, T>;
+
+    /// Converts the supplied value, in radians, into this unit's type.
+    fn from_radians<T: AngleValue>(value: T) -> Angle<Self, T>;
+
+    /// Converts the supplied value, in degrees, into this unit's type.
+    fn from_degrees<T: AngleValue>(value: T) -> Angle<Self, T>;
+
+    /// Converts the supplied value, in rotations, into this unit's type.
+    fn from_rotations<T: AngleValue>(value: T) -> Angle<Self, T>;
+
+    /// Converts the supplied value, in percentage, into this unit's type.
+    fn from_percentage<T: AngleValue>(value: T) -> Angle<Self, T>;
 }
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -31,6 +43,22 @@ impl AngleUnit for Radians {
 
     fn to_percentage<T: AngleValue>(value: T) -> Angle<Percentage, T> {
         Angle::new(value.radians_to_percentage())
+    }
+
+    fn from_radians<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value)
+    }
+
+    fn from_degrees<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.degrees_to_radians())
+    }
+
+    fn from_rotations<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.rotations_to_radians())
+    }
+
+    fn from_percentage<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.percentage_to_radians())
     }
 }
 
@@ -53,6 +81,22 @@ impl AngleUnit for Degrees {
     fn to_percentage<T: AngleValue>(value: T) -> Angle<Percentage, T> {
         Angle::new(value.degrees_to_percentage())
     }
+
+    fn from_radians<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.radians_to_degrees())
+    }
+
+    fn from_degrees<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value)
+    }
+
+    fn from_rotations<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.rotations_to_degrees())
+    }
+
+    fn from_percentage<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.percentage_to_degrees())
+    }
 }
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -74,6 +118,22 @@ impl AngleUnit for Rotations {
     fn to_percentage<T: AngleValue>(value: T) -> Angle<Percentage, T> {
         Angle::new(value.rotations_to_percentage())
     }
+
+    fn from_radians<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.radians_to_rotations())
+    }
+
+    fn from_degrees<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.degrees_to_rotations())
+    }
+
+    fn from_rotations<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value)
+    }
+
+    fn from_percentage<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.percentage_to_rotations())
+    }
 }
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -93,6 +153,22 @@ impl AngleUnit for Percentage {
     }
 
     fn to_percentage<T: AngleValue>(value: T) -> Angle<Percentage, T> {
+        Angle::new(value)
+    }
+
+    fn from_radians<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.radians_to_percentage())
+    }
+
+    fn from_degrees<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.radians_to_percentage())
+    }
+
+    fn from_rotations<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.rotations_to_percentage())
+    }
+
+    fn from_percentage<T: AngleValue>(value: T) -> Angle<Self, T> {
         Angle::new(value)
     }
 }

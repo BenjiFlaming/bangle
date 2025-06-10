@@ -8,7 +8,7 @@
 //! All conversions, for each unit and numeric type,
 //! are covered by tests, and the library is fully `no_std` compatible.
 //! `bangle` is especially intended for situations where local code clarity
-//! may be enhanced by specifying or modifying an angle in units other than radians.
+//! may be enhanced by specifying or modifying angles in units other than radians.
 //!
 //!
 //! ## Creating an [`Angle`]
@@ -134,14 +134,14 @@
 //! ```
 //!
 //! Alternatively, you could allow callers to provide other angle units,
-//! or raw floating point numbers, by using the [`Into`] trait:
+//! or raw floating point numbers, by using the [`ConvertAngle`] trait:
 //!
 //! ```rust
-//! # use bangle::{Angle, Radians, AngleInRadians};
+//! # use bangle::{Angle, Radians, AngleInRadians, ConvertAngle};
 //! # use approx::assert_ulps_eq;
 //! #
-//! fn twice(angle: impl Into<AngleInRadians>) -> AngleInRadians {
-//!   let radians = angle.into();
+//! fn twice(angle: impl ConvertAngle) -> AngleInRadians {
+//!   let radians = angle.convert();
 //!   radians * 2.0
 //! }
 //!
@@ -150,7 +150,6 @@
 //!
 //! assert_ulps_eq!(twice(radians).value, 10.0);
 //! assert_ulps_eq!(twice(degrees).as_degrees().value, 10.0);
-//! assert_ulps_eq!(twice(5.0).value, 10.0);
 //! ```
 //!
 //! As a final option, you could make a function completely generic:
@@ -219,7 +218,7 @@
 #![warn(missing_docs, clippy::missing_docs_in_private_items)]
 
 pub use self::{
-    angle::{Angle, FromAngle},
+    angle::{Angle, ConvertAngle, FromOther},
     degrees::AngleInDegrees,
     percentage::AngleInPercentage,
     radians::AngleInRadians,

@@ -8,7 +8,7 @@ with `f32` being the implicit default.
 All conversions, for each unit and numeric type,
 are covered by tests, and the library is fully `no_std` compatible.
 `bangle` is especially intended for situations where local code clarity
-may be enhanced by specifying or modifying an angle in units other than radians.
+may be enhanced by specifying or modifying angles in units other than radians.
 
 
 ## Creating an `Angle`
@@ -116,11 +116,11 @@ assert_ulps_eq!(twice(angle).value, 10.0);
 ```
 
 Alternatively, you could allow callers to provide other angle units,
-or raw floating point numbers, by using the `Into` trait:
+by using the `ConvertAngle` trait:
 
 ```rust
-fn twice(angle: impl Into<AngleInRadians>) -> AngleInRadians {
-  let radians = angle.into();
+fn twice(angle: impl ConvertAngle) -> AngleInRadians {
+  let radians = angle.convert();
   radians * 2.0
 }
 
@@ -129,7 +129,6 @@ let degrees = Angle::degrees(5.0);
 
 assert_ulps_eq!(twice(radians).value, 10.0);
 assert_ulps_eq!(twice(degrees).as_degrees().value, 10.0);
-assert_ulps_eq!(twice(5.0).value, 10.0);
 ```
 
 As a final option, you could make a function completely generic:
