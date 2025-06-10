@@ -1,4 +1,18 @@
 #[test]
+fn negation32() {
+    let degrees = Angle::degrees(90.0f32);
+    let negative = -degrees;
+    assert_ulps_eq!(negative.value, -90.0);
+}
+
+#[test]
+fn negation64() {
+    let degrees = Angle::degrees(90.0f64);
+    let negative = -degrees;
+    assert_ulps_eq!(negative.value, -90.0);
+}
+
+#[test]
 fn radians_plus_degrees() {
     let radians = Angle::radians(FRAC_PI_2);
     let degrees = Angle::degrees(90.0);

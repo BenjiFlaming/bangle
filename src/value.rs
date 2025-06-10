@@ -47,6 +47,9 @@ pub trait AngleValue:
 
     /// Converts this value from percentage to degrees.
     fn percentage_to_rotations(&self) -> Self;
+
+    /// Negates this value in-place (multiplies it by -1.0).
+    fn negate(&mut self);
 }
 
 impl AngleValue for f32 {
@@ -97,6 +100,10 @@ impl AngleValue for f32 {
     fn percentage_to_rotations(&self) -> Self {
         self * 0.01
     }
+
+    fn negate(&mut self) {
+        *self *= -1.0;
+    }
 }
 
 impl AngleValue for f64 {
@@ -146,6 +153,10 @@ impl AngleValue for f64 {
 
     fn percentage_to_rotations(&self) -> Self {
         self * 0.01
+    }
+
+    fn negate(&mut self) {
+        *self *= -1.0;
     }
 }
 

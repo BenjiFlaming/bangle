@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
 
+## 0.4.1 (2025-06-10)
+
+
+### ⭐ Added
+
+- `Angle` now implements `core::ops::Neg`
+
+
+
 ## 0.4.0 (2025-06-10)
 
 

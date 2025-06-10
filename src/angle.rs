@@ -138,6 +138,19 @@ where
     }
 }
 
+impl<U, T> Neg for Angle<U, T>
+where
+    U: AngleUnit<T>,
+    T: AngleValue,
+{
+    type Output = Self;
+
+    fn neg(mut self) -> Self::Output {
+        self.value.negate();
+        self
+    }
+}
+
 use crate::{
     AngleInDegrees, AngleInPercentage, AngleInRadians, AngleInRotations, AngleUnit, AngleValue,
     FromOther,
@@ -145,5 +158,5 @@ use crate::{
 use core::{
     fmt::Debug,
     marker::PhantomData,
-    ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign},
+    ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign},
 };
