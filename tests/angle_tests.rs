@@ -5,6 +5,20 @@ fn basic_sanity() {
 }
 
 #[test]
+fn test_generic_to_radians() {
+    let rotations: AngleInRotations = Angle::new(0.5);
+    let degrees = generic_to_degrees(rotations);
+    assert_ulps_eq!(degrees.value, 180.0);
+}
+
+fn generic_to_degrees<U>(angle: Angle<U>) -> AngleInDegrees
+where
+    U: AngleUnit,
+{
+    angle.as_degrees()
+}
+
+#[test]
 fn default_value() {
     let angle = AngleInRadians::<f32>::default();
     assert_eq!(angle.value, 0.0);
@@ -21,4 +35,6 @@ fn conversion_from_owned() {
 }
 
 use approx::assert_ulps_eq;
-use bangle::{Angle, AngleInDegrees, AngleInPercentage, AngleInRadians, AngleInRotations, Degrees};
+use bangle::{
+    Angle, AngleInDegrees, AngleInPercentage, AngleInRadians, AngleInRotations, AngleUnit, Degrees,
+};
