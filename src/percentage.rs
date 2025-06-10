@@ -30,7 +30,7 @@ where
     }
 
     fn from_degrees(value: T) -> Angle<Self, T> {
-        Angle::new(value.radians_to_percentage())
+        Angle::new(value.degrees_to_percentage())
     }
 
     fn from_rotations(value: T) -> Angle<Self, T> {
