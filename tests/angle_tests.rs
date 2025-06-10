@@ -5,6 +5,12 @@ fn basic_sanity() {
 }
 
 #[test]
+fn default_value() {
+    let angle = AngleInRadians::<f32>::default();
+    assert_eq!(angle.value, 0.0);
+}
+
+#[test]
 fn conversion_from_owned() {
     let radians = AngleInRadians::new(1.0);
     let degrees = AngleInDegrees::from(radians);

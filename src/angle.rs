@@ -1,5 +1,5 @@
 /// An angle, of generic unit `U` and generic floating point type `T`.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Default)]
 pub struct Angle<U: AngleUnit, T: AngleValue = f32> {
     /// The value of this angle, as a floating point number of type `T`.
     pub value: T,

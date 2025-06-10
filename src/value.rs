@@ -8,6 +8,7 @@ pub trait AngleValue:
     + MulAssign<Self>
     + Div<Self, Output = Self>
     + DivAssign<Self>
+    + Default
     + Copy
     + Sized
 {
