@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 ### ⭐ Added
 
 - `Angle` now implements `Default`
+- Manually replicated core documentation in README
 
 
 
