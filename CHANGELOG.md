@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 ## [Unreleased]
 
 
+### ⭐ Added
+
+- `ConvertAngle` and `FromOther` traits, to facilitate easier conversions
+
+
+### 🔧 Changed
+
+- Use faster, simpler math for many conversions
+
+
 ### 🔥 Removed
 
 - Generic implemention of `From` for creating `Angle` from numerics (use explicit constructors or implicit conversions instead)
