@@ -6,7 +6,7 @@
 //! The core type is simply called [`Angle`], and it has a dedicated constructor
 //! named for each supported unit type:
 //!
-//! ```
+//! ```rust
 //! use bangle::Angle;
 //! use core::f32::consts::PI;
 //!
@@ -22,7 +22,7 @@
 //! Once you have an [`Angle`], you can convert it to any other type
 //! via similarly named functions:
 //!
-//! ```
+//! ```rust
 //! # use bangle::Angle;
 //! #
 //! let degrees = Angle::degrees(90.0);
@@ -36,7 +36,7 @@
 //!
 //! The value of an [`Angle`] is stored in the public [`value`][Angle::value] member:
 //!
-//! ```
+//! ```rust
 //! # use bangle::Angle;
 //! #
 //! let mut degrees = Angle::degrees(90.0);
@@ -56,7 +56,7 @@
 //! and the result will be an angle of whatever type is on
 //! the lefthand side of the operation:
 //!
-//! ```
+//! ```rust
 //! # use bangle::Angle;
 //! # use core::f32::consts::PI;
 //! # use approx::assert_ulps_eq;
@@ -75,7 +75,7 @@
 //!
 //! You can also multiply and divide angles by floating point numbers:
 //!
-//! ```
+//! ```rust
 //! # use bangle::Angle;
 //! # use core::f32::consts::PI;
 //! # use approx::assert_ulps_eq;
@@ -95,7 +95,7 @@
 //! If you want to ensure that a function receives an [`Angle`] of a particular type,
 //! you can specify that type explicitly:
 //!
-//! ```
+//! ```rust
 //! # use bangle::{Angle, Radians, AngleInRadians};
 //! # use approx::assert_ulps_eq;
 //! #
@@ -109,7 +109,7 @@
 //!
 //! Or use one of the crate's type aliases:
 //!
-//! ```
+//! ```rust
 //! # use bangle::{Angle, Radians};
 //! # use approx::assert_ulps_eq;
 //! #
@@ -126,7 +126,7 @@
 //! Alternatively, you could allow callers to provide other angle units,
 //! or raw floating point numbers, by using the [`Into`] trait:
 //!
-//! ```
+//! ```rust
 //! # use bangle::{Angle, Radians, AngleInRadians};
 //! # use approx::assert_ulps_eq;
 //! #
@@ -145,7 +145,7 @@
 //!
 //! As a final option, you could make a function completely generic:
 //!
-//! ```
+//! ```rust
 //! # use bangle::{Angle, AngleUnit};
 //! # use approx::assert_ulps_eq;
 //! #
@@ -167,7 +167,7 @@
 //! If your use case requires higher precision,
 //! you can use [`f64`] numbers by overriding the appropriate generic argument:
 //!
-//! ```
+//! ```rust
 //! # use bangle::{Angle, Radians, AngleInRadians};
 //! # use approx::assert_ulps_eq;
 //! fn sum_angles(angle1: Angle<Radians, f64>, angle2: AngleInRadians<f64>) -> AngleInRadians<f64> {
