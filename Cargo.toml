@@ -1,6 +1,7 @@
 [package]
 name = "bangle"
 version = "0.2.0"
+authors = ["Benji Flaming <rust@benjiflaming.com>"]
 edition = "2021"
 description = "Strongly-typed angles, specified in radians, degrees, rotations, or percentages."
 license = "MIT OR Apache-2.0"
