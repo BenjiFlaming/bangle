@@ -218,12 +218,12 @@
 #![warn(missing_docs, clippy::missing_docs_in_private_items)]
 
 pub use self::{
-    angle::{Angle, ConvertAngle, FromOther},
-    degrees::AngleInDegrees,
-    percentage::AngleInPercentage,
-    radians::AngleInRadians,
-    rotations::AngleInRotations,
-    unit::{AngleUnit, Degrees, Percentage, Radians, Rotations},
+    angle::Angle,
+    degrees::{AngleInDegrees, Degrees},
+    percentage::{AngleInPercentage, Percentage},
+    radians::{AngleInRadians, Radians},
+    rotations::{AngleInRotations, Rotations},
+    unit::{AngleUnit, ConvertAngle, FromOther},
     value::AngleValue,
 };
 

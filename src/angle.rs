@@ -8,24 +8,6 @@ pub struct Angle<U: AngleUnit, T: AngleValue = f32> {
     pub angle_unit: PhantomData<U>,
 }
 
-/// Allows conversion to this angle unit from any other unit.
-pub trait FromOther<T = f32>: Sized {
-    /// Converts an angle into this type.
-    fn from_other<U>(angle: impl Borrow<Angle<U, T>>) -> Self
-    where
-        U: AngleUnit,
-        T: AngleValue;
-}
-
-/// Allows this unit to be converted to any other unit.
-pub trait ConvertAngle<T = f32> {
-    /// Converts this angle into another type.
-    fn convert<U>(self) -> Angle<U, T>
-    where
-        U: AngleUnit,
-        T: AngleValue;
-}
-
 // Allows the construction of an angle from a raw numeric type.
 impl<U, T> From<T> for Angle<U, T>
 where
@@ -169,9 +151,9 @@ where
 
 use crate::{
     AngleInDegrees, AngleInPercentage, AngleInRadians, AngleInRotations, AngleUnit, AngleValue,
+    FromOther,
 };
 use core::{
-    borrow::Borrow,
     fmt::Debug,
     marker::PhantomData,
     ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign},

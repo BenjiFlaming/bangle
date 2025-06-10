@@ -1,3 +1,41 @@
+#[derive(Clone, Copy, Debug, Default)]
+/// An angle specified in rotations.
+pub struct Rotations;
+
+impl AngleUnit for Rotations {
+    fn to_radians<T: AngleValue>(value: T) -> Angle<Radians, T> {
+        Angle::new(value.rotations_to_radians())
+    }
+
+    fn to_degrees<T: AngleValue>(value: T) -> Angle<Degrees, T> {
+        Angle::new(value.rotations_to_degrees())
+    }
+
+    fn to_rotations<T: AngleValue>(value: T) -> Angle<Rotations, T> {
+        Angle::new(value)
+    }
+
+    fn to_percentage<T: AngleValue>(value: T) -> Angle<Percentage, T> {
+        Angle::new(value.rotations_to_percentage())
+    }
+
+    fn from_radians<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.radians_to_rotations())
+    }
+
+    fn from_degrees<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.degrees_to_rotations())
+    }
+
+    fn from_rotations<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value)
+    }
+
+    fn from_percentage<T: AngleValue>(value: T) -> Angle<Self, T> {
+        Angle::new(value.percentage_to_rotations())
+    }
+}
+
 /// An angle which has been specified in rotations.
 pub type AngleInRotations<T = f32> = Angle<Rotations, T>;
 
@@ -37,5 +75,5 @@ where
     }
 }
 
-use crate::{Angle, AngleUnit, AngleValue, ConvertAngle, FromOther, Rotations};
+use crate::{Angle, AngleUnit, AngleValue, ConvertAngle, Degrees, FromOther, Percentage, Radians};
 use core::borrow::Borrow;
