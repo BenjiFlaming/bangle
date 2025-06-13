@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 - `Angle` now implements `PartialEq` and `PartialOrd`
 
+### 🔧 Changed
+
+- Improved documentation regarding generic angle arguments
+
 
 
 ## 0.4.1 (2025-06-10)

@@ -116,33 +116,32 @@ assert_ulps_eq!(twice(angle).value, 10.0);
 ```
 
 Alternatively, you could allow callers to provide other angle units,
-by using the `ConvertAngle` trait:
+by making a function partly or completely generic:
 
 ```rust
-fn twice(angle: impl ConvertAngle) -> AngleInRadians {
-  let radians = angle.convert();
+let radians = Angle::radians(PI / 2.0);
+let degrees = Angle::degrees(90.0);
+let rotations = Angle::rotations(0.25);
+let percentage = Angle::percentage(25.0);
+
+fn twice_in_radians<T: AngleUnit>(angle: Angle<T>) -> AngleInRadians {
+  let radians = angle.as_radians();
   radians * 2.0
 }
 
-let radians = Angle::radians(5.0);
-let degrees = Angle::degrees(5.0);
+assert_ulps_eq!(twice_in_radians(radians).value, PI);
+assert_ulps_eq!(twice_in_radians(degrees).value, PI);
+assert_ulps_eq!(twice_in_radians(rotations).value, PI);
+assert_ulps_eq!(twice_in_radians(percentage).value, PI);
 
-assert_ulps_eq!(twice(radians).value, 10.0);
-assert_ulps_eq!(twice(degrees).as_degrees().value, 10.0);
-```
-
-As a final option, you could make a function completely generic:
-
-```rust
 fn twice<T: AngleUnit>(angle: Angle<T>) -> Angle<T> {
   angle * 2.0
 }
 
-let radians = Angle::radians(5.0);
-let degrees = Angle::degrees(5.0);
-
-assert_ulps_eq!(twice(radians).value, 10.0);
-assert_ulps_eq!(twice(degrees).value, 10.0);
+assert_ulps_eq!(twice(radians).value, PI);
+assert_ulps_eq!(twice(degrees).value, 180.0);
+assert_ulps_eq!(twice(rotations).value, 0.5);
+assert_ulps_eq!(twice(percentage).value, 50.0);
 ```
 
 
@@ -185,5 +184,5 @@ and then use `cargo test --doc` to test the examples in this documentation.
 
 If you find this library useful, and you're curious to know what else I might be building or doing,
 you might enjoy visiting [my website](https://benjiflaming.com), where you'll find content dating back
-all the way to the late 90s.
+all the way to the late 90s.  Cheers!
 
