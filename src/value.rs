@@ -9,6 +9,8 @@ pub trait AngleValue:
     + Div<Self, Output = Self>
     + DivAssign<Self>
     + Default
+    + PartialEq
+    + PartialOrd
     + Copy
     + Sized
 {

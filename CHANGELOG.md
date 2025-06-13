@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
 
+## [Unreleased]
+
+
+### ⭐ Added
+
+- `Angle` now implements `PartialEq` and `PartialOrd`
+
+
+
 ## 0.4.1 (2025-06-10)
 
 

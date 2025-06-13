@@ -42,6 +42,26 @@ where
     }
 }
 
+impl<U, T> PartialEq for Angle<U, T>
+where
+    U: AngleUnit<T>,
+    T: AngleValue,
+{
+    fn eq(&self, other: &Angle<U, T>) -> bool {
+        self.value == other.value
+    }
+}
+
+impl<U, T> PartialOrd for Angle<U, T>
+where
+    U: AngleUnit<T>,
+    T: AngleValue,
+{
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.value.partial_cmp(&other.value)
+    }
+}
+
 impl<U, T, O> Add<Angle<O, T>> for Angle<U, T>
 where
     U: AngleUnit<T>,
@@ -156,6 +176,7 @@ use crate::{
     FromOther,
 };
 use core::{
+    cmp::Ordering,
     fmt::Debug,
     marker::PhantomData,
     ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign},

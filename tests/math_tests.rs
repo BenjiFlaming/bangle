@@ -1,4 +1,19 @@
 #[test]
+fn equality() {
+    let first = Angle::degrees(90.0);
+    let second = Angle::degrees(90.0);
+    assert_eq!(first, second);
+}
+
+#[test]
+fn compare() {
+    let first = Angle::degrees(90.0);
+    let second = Angle::degrees(180.0);
+    assert!(first < second);
+    assert!(second > first);
+}
+
+#[test]
 fn negation32() {
     let degrees = Angle::degrees(90.0f32);
     let negative = -degrees;
